@@ -1,0 +1,34 @@
+.auth-form {
+  * {
+    box-sizing: border-box;
+  };
+  &__content {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  };
+  &__input {
+    box-sizing: border-box;
+    width: 100%;
+  };
+  &__btn {
+    width: 100%;
+    height: 30px;
+  };
+  &__element {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+  };
+  &__err-message {
+    border: 1px solid chocolate;
+    padding: 2px;
+    background: darkgoldenrod;
+    opacity: 80%;
+    border-radius: 5px;
+    text-align: center;
+    color: white;
+    width: 50%;
+    margin: auto;
+  };
+}

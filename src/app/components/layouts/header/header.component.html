@@ -1,0 +1,8 @@
+<div *ngIf="!isLogged">
+  <button routerLink="/login">Log In</button>
+  <button routerLink="/register">Sign Up</button>
+</div>
+<div *ngIf="isLogged">
+  <button routerLink="/logout">Logout</button>
+</div>
+<hr>

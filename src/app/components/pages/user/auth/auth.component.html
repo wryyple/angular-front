@@ -1,0 +1,33 @@
+<div>
+  <form class="auth-form auth-form__content" [formGroup]="authForm" (submit)="onSubmit()">
+    <div class="auth-form__element">
+<!--      <label>Почта: </label>-->
+      <input class="auth-form__input" type="text" formControlName="login" placeholder="Почта" >
+      <div class="auth-form__err-message" *ngIf="getControl('login')?.invalid && (getControl('login')?.touched || getControl('login')?.dirty)">
+        <span *ngIf="getControl('login')?.hasError('required')">
+          Обязательное поле.
+        </span>
+
+        <span *ngIf="getControl('login')?.hasError('minlength')">
+          Длина логина должна быть >= 4.
+        </span>
+      </div>
+    </div>
+
+    <div class="auth-form__element">
+<!--      <label>Пароль: </label>-->
+      <input class="auth-form__input" type="password" formControlName="password" placeholder="Пароль">
+      <div class="auth-form__err-message" *ngIf="getControl('password')?.invalid && (getControl('password')?.touched || getControl('password')?.dirty)">
+        <span *ngIf="getControl('password')?.hasError('required')">
+          Обязательное поле.
+        </span>
+
+        <span *ngIf="getControl('password')?.hasError('minlength')">
+          Длина логина пароля быть >= 8.
+        </span>
+      </div>
+    </div>
+
+    <button class="button auth-form__btn " type="submit" [disabled]="authForm.invalid">Login</button>
+  </form>
+</div>

@@ -1,0 +1,56 @@
+<div>
+  <form class="reg-form reg-form__content" [formGroup]="regForm" (submit)="onSumbit()">
+    <div class="reg-form__element">
+<!--      <label>Логин: </label>-->
+      <input class="reg-form__input" type="text" formControlName="login" placeholder="Логин">
+      <div class="reg-form__err-message" *ngIf="getControl('login')?.invalid && (getControl('login')?.touched || getControl('login')?.dirty)">
+        <span *ngIf="getControl('login')?.hasError('required')">
+          Обязательное поле.
+        </span>
+
+        <span *ngIf="getControl('login')?.hasError('minlength')">
+          Длина логина должна быть >= 4.
+        </span>
+      </div>
+    </div>
+
+    <div class="reg-form__element">
+<!--      <label>Email: </label>-->
+      <input class="reg-form__input" type="text" formControlName="email" placeholder="Почта">
+      <div class="reg-form__err-message" *ngIf="getControl('email')?.invalid && (getControl('email')?.dirty || getControl('email')?.touched)">
+        <span *ngIf="getControl('email')?.hasError('required')">
+          Обязательное поле.
+        </span>
+
+        <span *ngIf="getControl('email')?.hasError('email')">
+          Некорректный формат Email.
+        </span>
+      </div>
+    </div>
+
+    <div class="reg-form__element">
+<!--      <label>Пароль: </label>-->
+      <input class="reg-form__input" type="password" formControlName="password" placeholder="Пароль">
+      <div class="reg-form__err-message" *ngIf="getControl('password')?.invalid && (getControl('password')?.dirty || getControl('password')?.touched)">
+        <span *ngIf="getControl('password')?.hasError('required')">
+          Обязательное поле.
+        </span>
+<!--        <pre>{{getPassword()?.errors | json}}</pre>-->
+      </div>
+    </div>
+
+    <div class="reg-form__element">
+<!--      <label>Подтверждение пароля: </label>-->
+      <input class="reg-form__input" type="password" formControlName="confirm_password" placeholder="Подтверждение пароля">
+      <div class="reg-form__err-message" *ngIf="getControl('confirm_password')?.invalid && (getControl('confirm_password')?.dirty || getControl('confirm_password')?.touched)">
+        <span *ngIf="getControl('confirm_password')?.hasError('required')">
+          Обязательное поле.
+        </span>
+        <!--        <pre>{{getPassword()?.errors | json}}</pre>-->
+      </div>
+    </div>
+
+    <span class="reg-form__err-message" *ngIf="regForm?.hasError('passwordMismatchError')">Пароли не совпадают!</span>
+    <button class="reg-form__btn" type="submit" [disabled]="regForm.invalid">Register</button>
+  </form>
+</div>
