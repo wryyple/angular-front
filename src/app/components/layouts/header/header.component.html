@@ -1,8 +1,11 @@
-<div *ngIf="!isLogged">
-  <button routerLink="/login">Log In</button>
+<div class="w" *ngIf="!isLogged">
+  <button class="ml" routerLink="/login">Log In</button>
   <button routerLink="/register">Sign Up</button>
 </div>
-<div *ngIf="isLogged">
+<div class="w" *ngIf="isLogged">
+  <button routerLink="/main">Main</button>
+  <button *ngIf="isModerator" class="ml" routerLink="/createPost">Create post</button>
+  <button [ngClass]="{ml: !isModerator}" routerLink="/profile/{{user_id}}">Profile</button>
   <button routerLink="/logout">Logout</button>
 </div>
 <hr>

@@ -1,3 +1,3 @@
 export const GlobalVariable = Object.freeze({
-  BASE_API_URL: "shop.api.ru:8000",
+  BASE_API_URL: "blog.api.ru:8000",
 })

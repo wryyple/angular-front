@@ -12,6 +12,8 @@ import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import { MainComponent } from './components/pages/main/main.component';
 import { LogoutComponent } from './components/pages/user/logout/logout.component';
 import {AuthInterceptor} from "./services/auth.interceptor";
+import { CreatePostComponent } from './components/pages/create-post/create-post.component';
+import {ProfileComponent} from "./components/pages/user/profile/profile.component";
 
 @NgModule({
   declarations: [
@@ -21,7 +23,9 @@ import {AuthInterceptor} from "./services/auth.interceptor";
     FooterComponent,
     HeaderComponent,
     MainComponent,
-    LogoutComponent
+    LogoutComponent,
+    CreatePostComponent,
+    ProfileComponent
   ],
     imports: [
         BrowserModule,

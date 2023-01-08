@@ -3,6 +3,7 @@ import {GlobalVariable} from "../../globals/global";
 import {HttpClient} from "@angular/common/http";
 import {Router} from "@angular/router";
 import {BehaviorSubject} from "rxjs";
+import iUser from "../../interfaces/iUser";
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +11,7 @@ import {BehaviorSubject} from "rxjs";
 export class UserService implements OnInit {
   private baseApiUrl: string = GlobalVariable.BASE_API_URL;
   private isLoggedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  // private userLevel: BehaviorSubject<number> = new BehaviorSubject<number>(0);
 
   constructor(
     private _http: HttpClient,
@@ -21,19 +23,16 @@ export class UserService implements OnInit {
     this.updateLoginStatus();
   }
 
-  private updateLoginStatus()
-  {
-    this.isLoggedIn.next(!!localStorage.getItem('token'));
+  private updateLoginStatus() {
+    this.isLoggedIn.next(!!localStorage.getItem('token') && !!localStorage.getItem('user'));
   }
 
-  public getLoginStatus()
-  {
+  public getLoginStatus() {
     this.updateLoginStatus();
+    if (!this.isLoggedIn){
+      this.logout();
+    }
     return this.isLoggedIn;
-  }
-
-  public getApiUrl() {
-    return this.baseApiUrl;
   }
 
   public signup(data: Object) {
@@ -51,7 +50,11 @@ export class UserService implements OnInit {
       .subscribe(
         result => {
           localStorage.setItem('token', result.toString());
-          this.updateLoginStatus();
+          this.getUserFromAPI().subscribe(result => {
+            let user = new Object(result as iUser);
+            localStorage.setItem('user', JSON.stringify(user));
+            this.updateLoginStatus();
+          });
 
           this._router.navigate(['/']);
         }, error => {
@@ -64,11 +67,21 @@ export class UserService implements OnInit {
       .subscribe(
         result => {
           localStorage.removeItem('token');
-          this.updateLoginStatus();
+          localStorage.removeItem('user');
 
+          this.updateLoginStatus();
           this._router.navigate(['/login']);
         }, error => {
           console.log(error);
         });
+  }
+
+  public getUserFromAPI() {
+    return this._http.get('http://' + this.baseApiUrl + '/api/user');
+  }
+
+  public getUser():iUser
+  {
+    return <iUser>JSON.parse(localStorage.getItem('user') || '');
   }
 }
