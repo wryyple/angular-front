@@ -18,6 +18,11 @@ export class UnauthGuard implements CanActivate, OnInit {
   ngOnInit() {
   }
 
+  getStatus()
+  {
+    return !this.isLogged;
+  }
+
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {

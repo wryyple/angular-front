@@ -15,6 +15,11 @@ export class AuthGuard implements CanActivate, OnInit {
   ) {
   }
 
+  getStatus()
+  {
+    return this.isLogged;
+  }
+
   ngOnInit() {
   }
 

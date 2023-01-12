@@ -11,6 +11,7 @@ import iUser from "../../interfaces/iUser";
 export class UserService implements OnInit {
   private baseApiUrl: string = GlobalVariable.BASE_API_URL;
   private isLoggedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+
   // private userLevel: BehaviorSubject<number> = new BehaviorSubject<number>(0);
 
   constructor(
@@ -29,7 +30,7 @@ export class UserService implements OnInit {
 
   public getLoginStatus() {
     this.updateLoginStatus();
-    if (!this.isLoggedIn){
+    if (!this.isLoggedIn.closed) {
       this.logout();
     }
     return this.isLoggedIn;
@@ -80,8 +81,12 @@ export class UserService implements OnInit {
     return this._http.get('http://' + this.baseApiUrl + '/api/user');
   }
 
-  public getUser():iUser
-  {
-    return <iUser>JSON.parse(localStorage.getItem('user') || '');
+  public getUser(): iUser {
+    let user = localStorage.getItem('user');
+    if (user) {
+      return <iUser>JSON.parse(user)
+    }
+    return <iUser>{};
   }
 }
+

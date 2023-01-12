@@ -9,7 +9,7 @@ import iUser from "../../../interfaces/iUser";
 })
 export class HeaderComponent implements OnInit {
   isLogged!: boolean;
-  user_id!: number;
+  user_id!: number|undefined;
   isModerator!: boolean;
 
   constructor(private _userService: UserService) {
@@ -17,7 +17,7 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit() {
     this._userService.getLoginStatus().subscribe(value => this.isLogged = value);
-    this.user_id = this._userService.getUser().id;
+    this.user_id = this._userService.getUser()?.id;
     this._userService.getUserFromAPI().subscribe(u => this.isModerator = (<iUser>u).level > 0)
   }
 }
